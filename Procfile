@@ -1,1 +1,1 @@
-web: gunicorn mixoni.mixoni:app --preload
+web: gunicorn mixoni:app --preload
