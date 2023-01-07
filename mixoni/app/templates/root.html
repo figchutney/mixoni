@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<div class="form">
+  <h1>Select your ingredients...</h1>
+  <form method="POST" action="{{ url_for('root') }}" id="main">
+    <div>
+      {% for i in ingredients %}
+      <div display="block">
+        <label for="{{i}}">{{ (i|beautify_enum).title() }}</label>
+        <input type="checkbox" id="{{i}}" name="ingredient" value="{{i}}" />
+      </div>
+      {% endfor %}
+    </div>
+    <button type="submit">Go!</button>
+  </form>
+</div>
+<div>
+  <div>
+    {% if cocktails %}
+    <h1>You can make:</h1>
+    <table>
+      {% for cocktail, ingredients in cocktails.items() %}
+      <tr>
+        <td>
+          <strong>{{ (cocktail|beautify_enum).title() }}</strong>
+        </td>
+        <td>
+          {% for i in ingredients %} {{i|beautify_enum}}{{ ", " if not loop.last
+          else "" }} {{ endif}} {% endfor %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <h1>You can't make anything! Go buy some ingredients.</h1>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
